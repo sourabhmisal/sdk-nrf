@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: LicenseRef-Nordic-5-Clause
  */
 
+#ifdef CONFIG_BOOT_IMAGE_ACCESS_HOOK_NRF5340
+
 #include <assert.h>
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
@@ -26,6 +28,7 @@
 #define NET_CORE_SECONDARY_IMAGE 1
 #define NET_CORE_VIRTUAL_PRIMARY_SLOT 3
 #endif
+
 
 #include <dfu/pcd.h>
 #if defined(CONFIG_PCD_APP) && defined(CONFIG_NRF53_MULTI_IMAGE_UPDATE) \
@@ -194,3 +197,5 @@ int boot_reset_request_hook(bool force)
 	}
 	return 0;
 }
+
+#endif /* CONFIG_BOOT_IMAGE_ACCESS_HOOK_NRF5340 */

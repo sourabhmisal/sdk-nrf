@@ -113,13 +113,32 @@ config BOOT_IMAGE_ACCESS_HOOKS
 
 config BOOT_IMAGE_ACCESS_HOOK_NRF5340
 	bool "Enable default nRF5340 hook"
-	default y if BOOT_IMAGE_ACCESS_HOOKS
+	default y if SOC_NRF5340_CPUAPP && BOOT_IMAGE_ACCESS_HOOKS
 	depends on BOOT_IMAGE_ACCESS_HOOKS
 	help
 	  This enables the default nRF5340 image hook for MCUboot, which
 	  supports upgrading the network core image from the application core.
 	  To disable or override this feature, disable this option and add a
 	  custom file using CMake.
+
+config BOOT_IMAGE_ACCESS_HOOK_NRF52840
+    bool "Enable custom nRF52840 image access hook"
+    default y if BOOT_IMAGE_ACCESS_HOOKS
+    depends on MCUBOOT	
+	help
+		Enable this option to use a custom image access hook implementation 
+		for the nRF52840 SoC in MCUboot.
+
+		This hook can be used to override the default behavior during image 
+		upload or image boot decisions, such as confirming an image or jumping 
+		to application code.
+
+		This is intended for projects using the nRF52840 or similar, and serves 
+		as an alternative to the default nRF5340 hook.
+
+		When this option is enabled, your custom implementation should be 
+		conditionally compiled via CMake and implement functions such as 
+		boot_serial_uploaded_hook or boot_go_hook.  
 
 DT_COMPAT_SIM_FLASH:= zephyr,sim-flash
 DT_SIM_FLASH_PATH := $(dt_nodelabel_path,flash_sim0)
