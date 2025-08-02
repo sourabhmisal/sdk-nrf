@@ -991,6 +991,11 @@ The following list summarizes both the main changes inherited from upstream MCUb
   CMake can be used to add additional hook files.
   See :file:`modules/mcuboot/hooks/CMakeLists.txt` for an example of how to achieve this.
 
+* Added support for a custom image access hook for the nRF52840 SoC.
+  This feature is enabled through the new :kconfig:option:CONFIG_BOOT_IMAGE_ACCESS_HOOK_NRF52840 Kconfig option.
+  When this option is enabled, the default nRF5340 hook is excluded (based on SoC detection), and a user-defined implementation can be compiled in using a CMake file similar to the one for the nRF5340.
+  This allows overriding MCUboot hook behavior (such as boot_serial_uploaded_hook) for nRF52840-based systems without impacting the nRF5340 logic.
+
 Zephyr
 ======
 
